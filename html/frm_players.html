@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+
+<head></b>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <title>Registro de jugadores</title>
+  <script type="text/javascript">
+    //print list
+    function createListPlayers(pJugadores, pTipo) {
+      document.getElementById("c_players").innerHTML = "";
+      document.getElementById("c_players_pro").innerHTML = "";
+
+      for (let i = 0; i < pJugadores.length; i++) {
+        let jugador = pJugadores[i];
+
+
+        if (pTipo == "Begginer") {
+
+          document.getElementById("c_players").innerHTML += `<p> ${jugador[0]}  //  ${jugador[1]} <span> // ${jugador[2]} </span>  // ${jugador[3]}  // ${jugador[4]}  // ${jugador[5]} // ${jugador[6]}  // ${jugador[7]} </p>`;
+
+
+        } else {
+          document.getElementById("c_players_pro").innerHTML += `<p> ${jugador[0]}  //  ${jugador[1]} <span> // ${jugador[2]} </span>  // ${jugador[3]}  // ${jugador[4]}  // ${jugador[5]} // ${jugador[6]}  // ${jugador[7]} </p>`;
+
+        }
+      }
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <hr>
+  <div class="cabecera">
+    <style media="screen">
+      .cabecera {
+        text-align: center;
+      }
+    </style>
+
+    <h1>
+      <img src="../img/1p.svg" width="40" height="40">
+      <b>Registro de jugadores</b>
+    </h1>
+  </div>
+  <div class="cabecera2">
+    <style media="screen">
+      .cabecera2 {
+        text-align: left;
+        padding-left: 15px;
+      }
+    </style>
+    <hr>
+    <h2>
+      <img src="../img/icon_register.jpg" width="35" height="35">
+      Nuevo jugador </h2>
+    <hr>
+
+  </div>
+  <div class="container">
+    <style media="screen">
+      .container {
+        text-align: center;
+      }
+    </style>
+    <div class="row">
+
+      <div class="row">
+        <div class="box1">
+          <style media="screen">
+            .box1 {
+              text-align: right;
+            }
+          </style>
+
+
+          <form class="datos_personales" name="datesP1" action="index.html" method="post">
+            <p>DNI:
+              <input type="text" id="dni" value="" />
+            </p>
+
+            <p>Nombre:
+              <input type="text" id="name" value="" />
+            </p>
+
+            <p>Apellidos:
+              <input type="text" id="surname" value="" />
+            </p>
+
+            <p>Fecha de Nacimiento:
+              <input type="text" id="birthday" value="" />
+            </p>
+
+          </form>
+        </div>
+
+
+        <div class="box2">
+          <style media="screen">
+            .box2 {
+              text-align: right;
+              margin-left: 20px;
+            }
+          </style>
+
+          <form class="datos_personales" name="datesP2" action="index.html" method="post">
+            <p>Teléfono:
+              <input type="text" id="telephone" value="" />
+            </p>
+
+            <p>Email:
+              <input type="text" id="email" value="" />
+            </p>
+
+            <p>Cuenta Corriente:
+              <input type="text" id="EAN" value="" />
+            </p>
+
+            <p>Tipo de jugador:
+              <select id="playerType">
+                <option value="Beggginer">Begginer</option>
+                <option value="Professional">Professional</option>
+              </select>
+
+            </p>
+
+          </form>
+        </div>
+        <div class="box3">
+          <style media="screen">
+            .box3 {
+              text-align: left;
+              margin-left: 45px;
+            }
+          </style>
+
+          <button type="button" class="btn btn-primary btn-mdm" id="bt-enviar" name="button" onclick="checkForm()">Agregar Jugador</button>
+        </div>
+      </div>
+    </div>
+    <div class="cabecera">
+      <hr>
+      <h2>
+        <img src="../img/index.png" width="45" height="45">
+        Lista de jugadores</h2>
+
+    </div>
+    <hr>
+
+    <div class="cabecera2" id="c_players"></div>
+    <div class="cabecera2" id="c_players_pro"></div>
+
+  </div>
+  <script type="text/javascript">
+    let players = [];
+    //VALIDATIONS
+    function validaEmail(Email) {
+      const regex = /^[A-Z0-9._%+-]+@(?:[A-Z0-9-]+.)+[A-Z]{2,4}$/i;
+      return regex.test(Email);
+    }
+
+    function validaTelefon(telefon) {
+      const regex = /^[0-9]{2,3}-? ?[0-9]{6,7}$/;
+      return regex.test(telefon);
+    }
+
+    function validaNumeric(num) {
+      const regex = /^[0-24]+$/i;
+      return regex.test(num);
+    }
+
+
+    function validaData(date, format = "dd/mm/aaaa") {
+      let regex = /^([0][1-9]|[12][0-9]|3[01])(\/|-)([0][1-9]|[1][0-2])\2(\d{4})$/;
+      if (format == "dd-mm-aaaa")
+        regex = /^(?:3[01]|[12][0-9]|0?[1-9])([\-/.])(0?[1-9]|1[1-2])\1\d{4}$/;
+      return regex.test(date);
+    }
+
+    function validaDNI(dni) {
+      const regex = /^\d{8}[a-zA-Z]$/;
+
+      if (regex.test(dni)) {
+        var numero = dni.substr(0, dni.length - 1);
+        var letr = dni.substr(dni.length - 1, 1);
+        numero = numero % 23;
+        letra = 'TRWAGMYFPDXBNJZSQVHLCKET';
+        letra = letra.substring(numero, numero + 1);
+        if (letra != letr.toUpperCase()) return false
+      } else {
+        return false;
+      }
+
+      return true;
+    }
+
+    //checkinfo
+    function checkForm() {
+      let camp_dni = document.getElementById("dni");
+      let camp_name = document.getElementById("name");
+      let camp_surname = document.getElementById("surname");
+      let camp_birthday = document.getElementById("birthday");
+      let camp_telephone = document.getElementById("telephone");
+      let camp_email = document.getElementById("email");
+      let camp_EAN = document.getElementById("EAN");
+      let camp_playertype = document.getElementById("playerType")[document.getElementById("playerType").selectedIndex];
+
+      //obligatory camps
+
+
+
+
+      if (camp_dni.value != "" && camp_name.value != "" && camp_surname.value != "" && camp_birthday.value != "" && camp_telephone.value != "" && camp_email.value != "" && camp_EAN.value != "") {
+
+        if (!validaDNI(camp_dni.value)) {
+          alert("El DNI es incorrecto");
+          return false;
+        }
+
+        if (!validaData(camp_birthday.value)) {
+          alert("La fecha de nacimiento es incorrecta");
+          return false;
+        }
+
+        if (!validaTelefon(camp_telephone.value)) {
+          alert("El telefono es incorrecto");
+          return false;
+        }
+
+
+        if (!validaEmail(camp_email.value)) {
+          alert("El email es incorrecto");
+          return false;
+        }
+
+
+        if (!validaNumeric(camp_EAN.value)) {
+          alert("El IBAN es incorrecto");
+          return false;
+        }
+
+
+
+
+
+        //agree after check, in the array
+
+        players.push([camp_dni.value, camp_name.value, camp_surname.value, camp_birthday.value, camp_telephone.value,
+          camp_email.value, camp_EAN.value, camp_playertype.value
+        ]);
+        //renew camps to the beggining
+
+        let containerPlayers = document.getElementById("c_players");
+        let containerPlayersPro = document.getElementById("c_players_pro");
+
+        createListPlayers(players, camp_playertype.value);
+        document.datesP1.reset();
+        document.datesP2.reset();
+        alert("Nuevo jugador insertado");
+
+      } else {
+
+        alert("Todos los campos son obligatorios");
+
+      }
+    }
+  </script>
+</body>
+
+</html>
